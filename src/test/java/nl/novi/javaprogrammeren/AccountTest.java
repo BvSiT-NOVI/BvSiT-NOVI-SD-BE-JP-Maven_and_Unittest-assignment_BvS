@@ -66,7 +66,7 @@ class AccountTest {
     @Test
     void addInterestTest(){
         //Arrange
-        Account account = new Account("Nick", 12, 400000);
+        Account account = new Account("Nick", 12, 4000000);
 
         //Act
         float balanceBeforeInterest=account.getBalance();
@@ -74,7 +74,7 @@ class AccountTest {
 
         //Assert 400 + (400 * 0.045)= 402.916
         //assertEquals(account.getBalance(),balanceBeforeInterest + (0.045f*balanceBeforeInterest));
-        assertEquals(account.getBalance(),418000.00);
+        assertEquals(account.getBalance(),4180000.00);
 
     }
 

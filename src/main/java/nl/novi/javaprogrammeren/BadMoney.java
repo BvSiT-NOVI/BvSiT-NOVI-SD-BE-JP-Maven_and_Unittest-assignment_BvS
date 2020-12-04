@@ -7,14 +7,40 @@ public class BadMoney {
 
     public static void main(String[] args) {
         //https://stackoverflow.com/questions/3730019/why-not-use-double-or-float-to-represent-currency
+
+        double x1 = 0.3;
+        double x2 = 0.1 + 0.1 + 0.1;
+        System.out.println(x1 == x2);
+
+        x1 = 1.0;
+        x2 = 0.1 + 0.1 + 0.1 + 0.1 + 0.1 +0.1 + 0.1 + 0.1 + 0.1 + 0.1;
+        x2 = 10 * 0.1;
+        System.out.println(x1 == x2);
+
+
+        System.out.println(0.33333334326744080000f * 3.0f);
+        //0,33333334326744080000
+
+        float y = 1.0E00f;
+
         float x = 1f/3;
-        System.out.println("1/3 ="+ String.format("%.10f", x)); //0,3333333433
-        System.out.println("3 * (1f/3) ="+ String.format("%.10f",3 * x));//Toch 1,0000000000 ??
+
+        System.out.println("1f/3 ="+ String.format("%.20f", x)); //0,33333334326744080000
+        System.out.println("3 * (1f/3) ="+ String.format("%.20f",3 * x));//Toch 1,00000000000000000000 ?? //int i * float f => float(i) * f
+        System.out.println("3d * (1f/3) ="+ String.format("%.20f",3d * x));//1,00000002980232240000 ?? //double d * float f => d  * (double) f
+        System.out.println("3.0 * (1f/3) ="+ String.format("%.20f",3.0 * x)); //1,00000002980232240000 // 3.0 is default type double
 
         //Hoe kan dit? Literal zou default een double worden, dus preciezer zou je zeggen?
         x=100000/3;
-        System.out.println( String.format("%.20f", x) ); //33333,00000000000000000000
-        x=100000f/3;
+        System.out.println( String.format("%.20f",  x) ); //33333,00000000000000000000
+        x=100000f/3;//Implicit casting: float forces 3 also to be cast to float
+        System.out.println( String.format("%.20f", x) ); //33333,33203125000000000000
+
+        //Antwoord: Nee, bij 100000/3 wordt er geen cast naar double uitgevoerd want deling bestaat alleen uit integers.
+        //De cast naar float vindt pas plaats na de integer deling.
+        x=100000/3; //int division throwing away reminder 1. So this would be equivalent to x=99999/3
+        System.out.println( String.format("%.20f",  x) ); //33333,00000000000000000000
+        x=100000f/3;//Implicit casting: float forces 3 also to be cast to float
         System.out.println( String.format("%.20f", x) ); //33333,33203125000000000000
 
         // Example 1
@@ -46,7 +72,7 @@ public class BadMoney {
         for (count = 1; count <= 1000; count = count + 1) {
             moneyInBank = moneyInBank + .10f;
             if (count % 100==0){
-                System.out.println( String.format("moneyInBank: %.20f", moneyInBank) );
+                //System.out.println( String.format("moneyInBank: %.20f", moneyInBank) );
             }
         }
 
